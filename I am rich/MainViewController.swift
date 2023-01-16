@@ -9,6 +9,17 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    private let stackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.alignment = .center
+        view.distribution = .equalSpacing
+        view.spacing = 100
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+        
+    }()
+    
     private let textLabel: UILabel = {
         let label = UILabel()
         label.text = "I AM RICH"
@@ -29,24 +40,37 @@ class MainViewController: UIViewController {
     
     private func setupViews() {
         view.backgroundColor = .systemMint
-        view.addSubview(textLabel)
-        view.addSubview(diamondView)
+        stackView.addArrangedSubview(textLabel)
+        stackView.addArrangedSubview(diamondView)
+        view.addSubview(stackView)
+        
     }
     
     private func setConstraints() {
+        
         NSLayoutConstraint.activate([
-            textLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
-            textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         
         ])
         
         NSLayoutConstraint.activate([
-            diamondView.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 200),
-            diamondView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            textLabel.centerXAnchor.constraint(equalTo: stackView.centerXAnchor)
+            
+            
+        
+        ])
+        
+        
+        NSLayoutConstraint.activate([
+            
+            diamondView.centerXAnchor.constraint(equalTo: stackView.centerXAnchor),
             diamondView.heightAnchor.constraint(equalToConstant: 200),
             diamondView.widthAnchor.constraint(equalToConstant: 300)
         
         ])
+        
     }
 
     override func viewDidLoad() {
